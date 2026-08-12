@@ -1,17 +1,43 @@
 ---
-const nav = [
-  { label: 'Philosophy', href: '#philosophy' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Technology', href: '#technology' },
-  { label: 'Open Source', href: '#open-source' },
-  { label: 'Contribute', href: '#contribute' },
-];
+interface Props {
+  lang?: 'en' | 'zh';
+}
+
+const { lang = 'en' } = Astro.props;
+const zh = lang === 'zh';
+
+const nav = zh
+  ? [
+      { label: '理念', href: '#philosophy' },
+      { label: '项目', href: '#projects' },
+      { label: '技术', href: '#technology' },
+      { label: '开源', href: '#open-source' },
+      { label: '参与贡献', href: '#contribute' },
+    ]
+  : [
+      { label: 'Philosophy', href: '#philosophy' },
+      { label: 'Projects', href: '#projects' },
+      { label: 'Technology', href: '#technology' },
+      { label: 'Open Source', href: '#open-source' },
+      { label: 'Contribute', href: '#contribute' },
+    ];
 
 const emails = [
-  { addr: 'hello@aukcraft.org', note: 'general & community' },
-  { addr: 'dev@aukcraft.org', note: 'technical' },
-  { addr: 'security@aukcraft.org', note: 'vulnerability reports' },
+  {
+    addr: 'hello@aukcraft.org',
+    note: zh ? '通用与社区' : 'general & community',
+  },
+  { addr: 'dev@aukcraft.org', note: zh ? '技术' : 'technical' },
+  {
+    addr: 'security@aukcraft.org',
+    note: zh ? '漏洞报告' : 'vulnerability reports',
+  },
 ];
+
+const t = {
+  contact: zh ? '联系方式' : 'CONTACT',
+  copyright: zh ? '© 2026 aukcraft. 以匠心打造。' : '© 2026 aukcraft. Crafted with precision.',
+};
 ---
 
 <footer class="border-t border-hairline">
@@ -42,7 +68,7 @@ const emails = [
     </div>
 
     <div class="md:col-span-2">
-      <p class="micro text-xs text-muted">CONTACT</p>
+      <p class="micro text-xs text-muted">{t.contact}</p>
       <ul class="mt-6 space-y-3">
         {
           emails.map((e) => (
@@ -58,7 +84,7 @@ const emails = [
 
   <div class="border-t border-hairline">
     <p class="mx-auto max-w-5xl px-6 py-6 font-mono text-xs text-muted">
-      © 2026 aukcraft. Crafted with precision.
+      {t.copyright}
     </p>
   </div>
 </footer>

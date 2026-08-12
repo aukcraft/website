@@ -7,16 +7,18 @@ import Technology from '../components/Technology.astro';
 import OpenSource from '../components/OpenSource.astro';
 import Contribute from '../components/Contribute.astro';
 import Footer from '../components/Footer.astro';
+
+const lang = 'en';
 ---
 
-<Layout>
+<Layout lang={lang}>
   <main id="main">
-    <Hero />
-    <Philosophy />
-    <Projects />
-    <Technology />
-    <OpenSource />
-    <Contribute />
+    <Hero lang={lang} />
+    <Philosophy lang={lang} />
+    <Projects lang={lang} />
+    <Technology lang={lang} />
+    <OpenSource lang={lang} />
+    <Contribute lang={lang} />
   </main>
-  <Footer />
+  <Footer lang={lang} />
 </Layout>

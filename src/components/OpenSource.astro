@@ -1,17 +1,27 @@
 ---
 import SectionHeading from './SectionHeading.astro';
 import FlightLine from './FlightLine.astro';
+
+interface Props {
+  lang?: 'en' | 'zh';
+}
+
+const { lang = 'en' } = Astro.props;
+const zh = lang === 'zh';
+
+const t = {
+  body: zh
+    ? '我们构建的一切都默认开源：模块在公开中设计、公开中审查，并以 MIT 协议发布。'
+    : 'Everything we build is open by default. Modules are designed in the open, reviewed in the open, and released under the MIT license.',
+  contributing: zh ? '贡献指南' : 'Contributing guide',
+};
 ---
 
 <section id="open-source" class="mx-auto max-w-5xl px-6 py-40 md:py-56">
-  <SectionHeading index="04" label="OPEN SOURCE" />
+  <SectionHeading index="04" label={zh ? '开源' : 'OPEN SOURCE'} />
 
   <p class="mt-16 max-w-prose text-lg leading-relaxed md:text-xl" data-reveal>
-    Everything we build is open by default. Modules are designed in the open,
-    reviewed in the open, and released under the MIT license.
-  </p>
-  <p class="mt-3 max-w-prose text-sm leading-relaxed text-muted" data-reveal>
-    我们构建的一切都默认开源：模块在公开中设计、审查，并以 MIT 协议发布。
+    {t.body}
   </p>
 
   <div class="mt-12 flex flex-wrap items-center gap-8" data-reveal>
@@ -28,7 +38,7 @@ import FlightLine from './FlightLine.astro';
       class="link-line font-mono text-xs uppercase tracking-[0.15em]"
       href="https://github.com/eeymoo/peregrine/blob/main/CONTRIBUTING.md"
       target="_blank"
-      rel="noopener noreferrer">Contributing guide&thinsp;↗</a
+      rel="noopener noreferrer">{t.contributing}&thinsp;↗</a
     >
   </div>
 

@@ -28,6 +28,20 @@ html {
   scroll-behavior: smooth;
 }
 
+/* ── Section scroll snap (PPT-like) ───────────────────────────────
+   proximity, not mandatory: sections taller than the viewport must
+   stay fully reachable on small screens. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-snap-type: y proximity;
+  }
+
+  main > *,
+  body > footer {
+    scroll-snap-align: start;
+  }
+}
+
 /* ── Consistent keyboard focus indicator ──────────────────────────
    .flight elements show the Flight Line on focus instead. */
 :focus-visible {

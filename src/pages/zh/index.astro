@@ -1,0 +1,24 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import Philosophy from '../../components/Philosophy.astro';
+import Projects from '../../components/Projects.astro';
+import Technology from '../../components/Technology.astro';
+import OpenSource from '../../components/OpenSource.astro';
+import Contribute from '../../components/Contribute.astro';
+import Footer from '../../components/Footer.astro';
+
+const lang = 'zh';
+---
+
+<Layout lang={lang}>
+  <main id="main">
+    <Hero lang={lang} />
+    <Philosophy lang={lang} />
+    <Projects lang={lang} />
+    <Technology lang={lang} />
+    <OpenSource lang={lang} />
+    <Contribute lang={lang} />
+  </main>
+  <Footer lang={lang} />
+</Layout>

@@ -9,31 +9,64 @@ import FlightLine from '../components/FlightLine.astro';
 >
   <main id="main" class="mx-auto max-w-5xl px-6">
     <section class="flex min-h-dvh flex-col items-start justify-center py-32">
-      <p class="micro text-xs text-muted" data-reveal>404</p>
-      <h1 class="balance mt-6 text-4xl font-medium leading-tight tracking-tight md:text-6xl" data-reveal>
-        This page drifted <em class="font-serif italic">off course</em>.
-      </h1>
-      <p class="serif-zh mt-4 text-lg text-muted md:text-xl" data-reveal>
-        页面不存在。
-      </p>
-
-      <p class="mt-10 max-w-prose leading-relaxed" data-reveal>
-        The address you followed doesn't exist — it may have moved, or never
-        existed at all.
-      </p>
-      <p class="mt-2 max-w-prose text-sm leading-relaxed text-muted" data-reveal>
-        你访问的地址不存在——它可能已移动，或从未存在过。
-      </p>
-
-      <div class="mt-12" data-reveal>
-        <a
-          href="/"
-          class="flight inline-flex items-center border border-hairline px-6 py-3 font-mono text-xs uppercase tracking-[0.15em] text-teal"
+      <!-- GitHub Pages serves this single 404.html for every missing path,
+           including /zh/* — pick the language block client-side. -->
+      <div id="notfound-en">
+        <p class="micro text-xs text-muted" data-reveal>404</p>
+        <h1
+          class="balance mt-6 text-4xl font-medium leading-tight tracking-tight md:text-6xl"
+          data-reveal
         >
-          Back to aukcraft.org
-          <FlightLine />
-        </a>
+          This page drifted <em class="font-serif italic">off course</em>.
+        </h1>
+
+        <p class="mt-10 max-w-prose leading-relaxed" data-reveal>
+          The address you followed doesn't exist — it may have moved, or never
+          existed at all.
+        </p>
+
+        <div class="mt-12" data-reveal>
+          <a
+            href="/"
+            class="flight inline-flex items-center border border-hairline px-6 py-3 font-mono text-xs uppercase tracking-[0.15em] text-teal"
+          >
+            Back to aukcraft.org
+            <FlightLine />
+          </a>
+        </div>
+      </div>
+
+      <div id="notfound-zh" hidden>
+        <p class="micro text-xs text-muted" data-reveal>404</p>
+        <h1
+          class="balance mt-6 text-4xl font-medium leading-tight tracking-tight md:text-6xl"
+          data-reveal
+        >
+          这个页面<span class="serif-zh">偏离了航线</span>。
+        </h1>
+
+        <p class="mt-10 max-w-prose leading-relaxed" data-reveal>
+          你访问的地址不存在——它可能已移动，或从未存在过。
+        </p>
+
+        <div class="mt-12" data-reveal>
+          <a
+            href="/zh/"
+            class="flight inline-flex items-center border border-hairline px-6 py-3 font-mono text-xs uppercase tracking-[0.15em] text-teal"
+          >
+            返回 aukcraft.org
+            <FlightLine />
+          </a>
+        </div>
       </div>
     </section>
   </main>
+  <script is:inline>
+    if (location.pathname.startsWith('/zh')) {
+      document.getElementById('notfound-en').hidden = true;
+      document.getElementById('notfound-zh').hidden = false;
+      document.documentElement.lang = 'zh-CN';
+      document.title = '页面不存在 — aukcraft';
+    }
+  </script>
 </Layout>

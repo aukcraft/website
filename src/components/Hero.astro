@@ -1,31 +1,63 @@
 ---
 import FlightLine from './FlightLine.astro';
+import HeroCanvas from './HeroCanvas.astro';
+
+interface Props {
+  lang?: 'en' | 'zh';
+}
+
+const { lang = 'en' } = Astro.props;
+const zh = lang === 'zh';
+
+const t = {
+  homeHref: zh ? '/zh/' : '/',
+  switchLabel: zh ? 'EN' : '中文',
+  switchHref: zh ? '/' : '/zh/',
+  body: zh
+    ? '一个小而精的开源团队，以模块化思维构建可复用的基础设施——配以刻意轻量的技术栈。'
+    : 'A small open-source team building modular, reusable infrastructure — with a deliberately lightweight stack.',
+  viewGithub: zh ? '访问 GitHub' : 'View GitHub',
+  explore: zh ? '探索 Peregrine' : 'Explore Peregrine',
+};
 ---
 
+<div>
 <header class="mx-auto flex max-w-5xl items-baseline justify-between px-6 pt-10">
-  <a href="/" class="font-mono text-sm tracking-tight text-ink">aukcraft</a>
-  <a
-    class="link-line font-mono text-xs"
-    href="https://github.com/aukcraft"
-    target="_blank"
-    rel="noopener noreferrer">github.com/aukcraft</a
-  >
+  <a href={t.homeHref} class="font-mono text-sm tracking-tight text-ink">aukcraft</a>
+  <nav class="flex items-baseline gap-6" aria-label="Language and links">
+    <a class="link-line font-mono text-xs" href={t.switchHref}>{t.switchLabel}</a>
+    <a
+      class="link-line font-mono text-xs"
+      href="https://github.com/aukcraft"
+      target="_blank"
+      rel="noopener noreferrer">github.com/aukcraft</a
+    >
+  </nav>
 </header>
 
-<section class="mx-auto max-w-5xl px-6 pb-40 pt-32 md:pt-44">
-  <h1 class="balance text-5xl font-medium leading-tight tracking-tight md:text-7xl" data-reveal>
-    Craft the <em class="font-serif italic">architecture</em>.
-  </h1>
-  <p class="serif-zh mt-4 text-xl text-muted md:text-2xl" data-reveal>
-    架构即工艺。
-  </p>
+<section class="relative mx-auto max-w-5xl px-6 pb-40 pt-32 md:pt-44">
+  <HeroCanvas />
+  <div class="relative">
+  {
+    zh ? (
+      <h1
+        class="balance text-5xl font-medium leading-tight tracking-tight md:text-7xl"
+        data-reveal
+      >
+        架构即<span class="serif-zh">工艺</span>。
+      </h1>
+    ) : (
+      <h1
+        class="balance text-5xl font-medium leading-tight tracking-tight md:text-7xl"
+        data-reveal
+      >
+        Craft the <em class="font-serif italic">architecture</em>.
+      </h1>
+    )
+  }
 
   <p class="mt-12 max-w-prose text-lg leading-relaxed md:text-xl" data-reveal>
-    A small open-source team building modular, reusable infrastructure —
-    with a deliberately lightweight stack.
-  </p>
-  <p class="mt-3 max-w-prose text-sm leading-relaxed text-muted" data-reveal>
-    一个小而精的开源团队，以模块化思维构建可复用的基础设施——配以刻意轻量的技术栈。
+    {t.body}
   </p>
 
   <div class="mt-14 flex flex-wrap gap-4" data-reveal>
@@ -35,7 +67,7 @@ import FlightLine from './FlightLine.astro';
       rel="noopener noreferrer"
       class="flight inline-flex items-center border border-hairline px-6 py-3 font-mono text-xs uppercase tracking-[0.15em] text-ink"
     >
-      View GitHub
+      {t.viewGithub}
       <FlightLine />
     </a>
     <a
@@ -44,8 +76,10 @@ import FlightLine from './FlightLine.astro';
       rel="noopener noreferrer"
       class="flight inline-flex items-center border border-hairline px-6 py-3 font-mono text-xs uppercase tracking-[0.15em] text-teal"
     >
-      Explore Peregrine
+      {t.explore}
       <FlightLine />
     </a>
   </div>
+  </div>
 </section>
+</div>

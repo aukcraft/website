@@ -3,21 +3,30 @@ import '@fontsource-variable/inter';
 import '@fontsource-variable/newsreader/wght-italic.css';
 import '@fontsource/jetbrains-mono/400.css';
 import '@fontsource/jetbrains-mono/500.css';
+import DotField from '../components/DotField.astro';
 import '../styles/global.css';
 
 interface Props {
   title?: string;
   description?: string;
+  lang?: 'en' | 'zh';
 }
 
+const { lang = 'en' } = Astro.props;
+const zh = lang === 'zh';
+
 const {
-  title = 'aukcraft — Craft the architecture.',
-  description = 'A small open-source team building modular, reusable infrastructure — with a deliberately lightweight stack.',
+  title = zh ? 'aukcraft — 架构即工艺。' : 'aukcraft — Craft the architecture.',
+  description = zh
+    ? '一个小而精的开源团队，以模块化思维构建可复用的基础设施——配以刻意轻量的技术栈。'
+    : 'A small open-source team building modular, reusable infrastructure — with a deliberately lightweight stack.',
 } = Astro.props;
+
+const canonical = zh ? 'https://aukcraft.org/zh/' : 'https://aukcraft.org/';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={zh ? 'zh-CN' : 'en'}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -25,12 +34,15 @@ const {
     <meta name="description" content={description} />
     <meta name="color-scheme" content="dark" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="canonical" href="https://aukcraft.org/" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="en" href="https://aukcraft.org/" />
+    <link rel="alternate" hreflang="zh-CN" href="https://aukcraft.org/zh/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="aukcraft" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content="https://aukcraft.org/" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={zh ? 'zh_CN' : 'en_US'} />
     <meta name="twitter:card" content="summary" />
     <script is:inline>
       document.documentElement.classList.add('js');
@@ -43,7 +55,8 @@ const {
     />
   </head>
   <body class="bg-base font-sans text-ink antialiased">
-    <a href="#main" class="skip-link">Skip to content</a>
+    <a href="#main" class="skip-link">{zh ? '跳到主要内容' : 'Skip to content'}</a>
+    <DotField />
     <div class="noise" aria-hidden="true"></div>
     <slot />
     <script>

@@ -1,17 +1,36 @@
 ---
 import SectionHeading from './SectionHeading.astro';
 
-const stack = [
-  ['Language', 'Rust', 'systems programming, performance, safety'],
-  ['Desktop', 'Tauri 2.x', 'lightweight cross-platform desktop runtime'],
-  ['Frontend', 'React + TypeScript', 'precise, typed UI engineering'],
-  ['Styling', 'Tailwind CSS', 'constrained, consistent design tokens'],
-  ['Scripting', 'Rhai', 'user-facing programmability, embedded in Rust'],
-];
+interface Props {
+  lang?: 'en' | 'zh';
+}
+
+const { lang = 'en' } = Astro.props;
+const zh = lang === 'zh';
+
+const stack = zh
+  ? [
+      ['语言', 'Rust', '系统编程、性能、安全'],
+      ['桌面', 'Tauri 2.x', '轻量跨平台桌面运行时'],
+      ['前端', 'React + TypeScript', '精确、类型化的 UI 工程'],
+      ['样式', 'Tailwind CSS', '受约束、一致的设计令牌'],
+      ['脚本', 'Rhai', '面向用户的可编程性，嵌入 Rust'],
+    ]
+  : [
+      ['Language', 'Rust', 'systems programming, performance, safety'],
+      ['Desktop', 'Tauri 2.x', 'lightweight cross-platform desktop runtime'],
+      ['Frontend', 'React + TypeScript', 'precise, typed UI engineering'],
+      ['Styling', 'Tailwind CSS', 'constrained, consistent design tokens'],
+      ['Scripting', 'Rhai', 'user-facing programmability, embedded in Rust'],
+    ];
+
+const quote = zh
+  ? '我们不是 Rust 团队——Rust 只是每次评估都胜出。'
+  : "We're not a Rust shop. Rust just keeps winning the evaluation.";
 ---
 
 <section id="technology" class="mx-auto max-w-5xl px-6 py-40 md:py-56">
-  <SectionHeading index="03" label="TECHNOLOGY" />
+  <SectionHeading index="03" label={zh ? '技术' : 'TECHNOLOGY'} />
 
   <div class="mt-16 border border-hairline bg-raised" data-reveal>
     <p class="border-b border-hairline px-6 py-3 font-mono text-xs text-muted">
@@ -31,9 +50,6 @@ const stack = [
   </div>
 
   <p class="mt-12 max-w-prose text-lg leading-relaxed md:text-xl" data-reveal>
-    We're not a Rust shop. Rust just keeps winning the evaluation.
-  </p>
-  <p class="mt-3 max-w-prose text-sm leading-relaxed text-muted" data-reveal>
-    我们不是 Rust 团队——Rust 只是每次评估都胜出。
+    {quote}
   </p>
 </section>

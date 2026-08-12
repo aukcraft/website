@@ -1,50 +1,55 @@
 ---
 import SectionHeading from './SectionHeading.astro';
 
+interface Props {
+  lang?: 'en' | 'zh';
+}
+
+const { lang = 'en' } = Astro.props;
+const zh = lang === 'zh';
+
 const cards = [
   {
     n: '01',
-    en: 'Architecture over code',
-    zh: '架构优先于代码',
-    body: 'We invest the most effort at the design stage; code is the execution of architecture, not a substitute for it.',
-    bodyZh: '在设计阶段投入最多精力；代码是架构的执行，而非架构的替代。',
+    title: zh ? '架构优先于代码' : 'Architecture over code',
+    body: zh
+      ? '在设计阶段投入最多精力；代码是架构的执行，而非架构的替代。'
+      : 'We invest the most effort at the design stage; code is the execution of architecture, not a substitute for it.',
   },
   {
     n: '02',
-    en: 'Modularity as strategy',
-    zh: '模块化即战略',
-    body: "Every component is independent, testable, and reusable — today's internal module is tomorrow's open-source crate.",
-    bodyZh: '每个组件独立、可测试、可复用——今天的内部模块，明天就是开源 crate。',
+    title: zh ? '模块化即战略' : 'Modularity as strategy',
+    body: zh
+      ? '每个组件独立、可测试、可复用——今天的内部模块，明天就是开源 crate。'
+      : "Every component is independent, testable, and reusable — today's internal module is tomorrow's open-source crate.",
   },
   {
     n: '03',
-    en: 'Process is product',
-    zh: '流程即产品',
-    body: 'CI/CD, code review, release strategy, and documentation are as important as the final code.',
-    bodyZh: 'CI/CD、代码审查、发布策略与文档，与最终代码同等重要。',
+    title: zh ? '流程即产品' : 'Process is product',
+    body: zh
+      ? 'CI/CD、代码审查、发布策略与文档，与最终代码同等重要。'
+      : 'CI/CD, code review, release strategy, and documentation are as important as the final code.',
   },
   {
     n: '04',
-    en: 'Cross-platform by default',
-    zh: '跨平台是默认',
-    body: 'A lightweight native stack; every platform, first-class.',
-    bodyZh: '以轻量原生技术栈为基；每个平台，都是一等公民。',
+    title: zh ? '跨平台是默认' : 'Cross-platform by default',
+    body: zh
+      ? '以轻量原生技术栈为基；每个平台，都是一等公民。'
+      : 'A lightweight native stack; every platform, first-class.',
   },
 ];
 ---
 
 <section id="philosophy" class="mx-auto max-w-5xl px-6 py-40 md:py-56">
-  <SectionHeading index="01" label="PHILOSOPHY" />
+  <SectionHeading index="01" label={zh ? '理念' : 'PHILOSOPHY'} />
 
   <div class="mt-16 grid gap-px bg-hairline sm:grid-cols-2">
     {
       cards.map((card) => (
         <article class="bg-base p-8 md:p-10" data-reveal>
           <p class="micro text-xs text-muted">{card.n}</p>
-          <h3 class="mt-4 text-xl font-medium">{card.en}</h3>
-          <p class="mt-1 text-sm text-muted">{card.zh}</p>
+          <h3 class="mt-4 text-xl font-medium">{card.title}</h3>
           <p class="mt-6 max-w-prose text-sm leading-relaxed">{card.body}</p>
-          <p class="mt-2 max-w-prose text-xs leading-relaxed text-muted">{card.bodyZh}</p>
         </article>
       ))
     }
