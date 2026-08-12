@@ -56,7 +56,10 @@
 
 <script>
   const construction = document.querySelector('.construction');
-  if (construction) {
+  // .construction 是 fixed 全屏元素，永远与视口相交；
+  // 改为观察它服务的 #contribute 区块，滚入视野时才触发一次描画。
+  const trigger = document.getElementById('contribute');
+  if (construction && trigger) {
     const io = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -66,8 +69,8 @@
           }
         }
       },
-      { threshold: 0.05 }
+      { threshold: 0.15 }
     );
-    io.observe(construction);
+    io.observe(trigger);
   }
 </script>
