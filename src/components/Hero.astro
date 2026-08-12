@@ -1,6 +1,7 @@
 ---
 import FlightLine from './FlightLine.astro';
 import HeroCanvas from './HeroCanvas.astro';
+import PuffinMark from './PuffinMark.astro';
 
 interface Props {
   lang?: 'en' | 'zh';
@@ -22,7 +23,10 @@ const t = {
 
 <div>
 <header class="mx-auto flex max-w-5xl items-baseline justify-between px-6 pt-10">
-  <a href={t.homeHref} class="font-mono text-sm tracking-tight text-ink">aukcraft</a>
+  <a href={t.homeHref} class="flex items-center gap-2 font-mono text-sm tracking-tight text-ink">
+    <PuffinMark class="h-6 w-6" />
+    aukcraft
+  </a>
   <nav class="flex items-baseline gap-6" aria-label="Language and links">
     <span class="flex items-baseline gap-2 font-mono text-xs">
       <span class="text-muted" aria-current="true">{zh ? '中文' : 'EN'}</span>

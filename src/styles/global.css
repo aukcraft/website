@@ -280,6 +280,95 @@ html.js [data-reveal]:nth-child(n + 5) {
   }
 }
 
+/* ── Puffin mark (dark-theme mapping of the layered icon) ───────── */
+.puffin-mark path,
+.puffin-mark polygon {
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+}
+
+.pm-feather {
+  fill: #8a9199;
+  stroke: #8a9199;
+}
+.pm-feather-2 {
+  fill: #788089;
+  stroke: #788089;
+}
+.pm-belly-1 {
+  fill: #1b2027;
+  stroke: none;
+}
+.pm-belly-2 {
+  fill: #151a20;
+  stroke: none;
+}
+.pm-belly-3 {
+  fill: #0f1319;
+  stroke: none;
+}
+.pm-face {
+  fill: #ededed;
+  stroke: #ededed;
+}
+.pm-face-2 {
+  fill: #d6d9dd;
+  stroke: #d6d9dd;
+}
+.pm-face-3 {
+  fill: #bdc2c8;
+  stroke: #bdc2c8;
+}
+.pm-eye {
+  fill: #0b0e11;
+  stroke: none;
+}
+
+/* ── Straightedge & compass construction animation ──────────────── */
+.construct > * {
+  fill: none;
+  stroke: rgba(237, 237, 237, 0.35);
+  stroke-width: 1.5;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.construction .puffin-mark__body {
+  opacity: 0;
+  transition: opacity 800ms ease;
+}
+
+.construction.is-constructed .construct > * {
+  animation: construct-draw 900ms var(--ease-lock) forwards;
+  animation-delay: calc(var(--i) * 160ms);
+}
+
+.construction.is-constructed .puffin-mark__body {
+  opacity: 1;
+  transition-delay: 1500ms;
+}
+
+@keyframes construct-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .construct > * {
+    stroke-dashoffset: 0;
+  }
+
+  .construction.is-constructed .construct > * {
+    animation: none;
+  }
+
+  .construction .puffin-mark__body {
+    opacity: 1;
+    transition: none;
+  }
+}
+
 /* ── Serif accents (keywords only) ──────────────────────────────── */
 .serif-zh {
   font-family: "Noto Serif SC", serif;

@@ -1,4 +1,6 @@
 ---
+import PuffinMark from './PuffinMark.astro';
+
 interface Props {
   lang?: 'en' | 'zh';
 }
@@ -43,7 +45,10 @@ const t = {
 <footer class="border-t border-hairline">
   <div class="mx-auto grid max-w-5xl gap-12 px-6 py-20 md:grid-cols-3">
     <div>
-      <p class="font-mono text-sm tracking-tight">aukcraft</p>
+      <p class="flex items-center gap-2 font-mono text-sm tracking-tight">
+        <PuffinMark class="h-6 w-6" />
+        aukcraft
+      </p>
       <nav class="mt-6" aria-label="Site">
         <ul class="space-y-2">
           {
