@@ -51,9 +51,41 @@ const t = {
 };
 ---
 
+<Construction />
+
 <section id="contribute" class="relative mx-auto max-w-5xl px-6 py-40 md:py-56">
-  <Construction />
   <SectionHeading index="05" label={zh ? '参与贡献' : 'CONTRIBUTE'} />
+
+  <p class="mt-16 max-w-prose text-lg leading-relaxed md:text-xl" data-reveal>
+    {t.lead}
+  </p>
+
+  <div class="mt-12 grid gap-px bg-hairline sm:grid-cols-2">
+    {
+      roles.map((role) => (
+        <article class="glass-deep p-8" data-reveal>
+          <p class="micro text-xs text-muted">{role.n}</p>
+          <h3 class="mt-3 text-lg font-medium">{role.title}</h3>
+          <p class="mt-4 text-sm leading-relaxed">{role.body}</p>
+        </article>
+      ))
+    }
+  </div>
+
+  <div class="mt-12 flex flex-wrap items-center gap-8" data-reveal>
+    <a
+      href="mailto:dev@aukcraft.org"
+      class="flight inline-flex items-center border border-hairline px-6 py-3 font-mono text-xs uppercase tracking-[0.15em] text-teal"
+    >
+      dev@aukcraft.org
+      <FlightLine />
+    </a>
+    <p class="max-w-prose text-sm leading-relaxed text-muted">
+      {t.note}
+    </p>
+  </div>
+</section>
+
 
   <p class="mt-16 max-w-prose text-lg leading-relaxed md:text-xl" data-reveal>
     {t.lead}

@@ -19,6 +19,7 @@
 
   /* z-index scale */
   --z-field: -1; /* DotField canvas, behind content */
+  --z-blueprint: 0; /* auk blueprint construction lines */
   --z-noise: 60; /* film grain overlay */
   --z-skip: 70; /* skip-to-content link */
 }
@@ -324,28 +325,47 @@ html.js [data-reveal]:nth-child(n + 5) {
   stroke: none;
 }
 
-/* ── Straightedge & compass construction animation ──────────────── */
-.construct > * {
+/* ── "Draw auk" blueprint construction background ─────────────────
+   Compass arcs + straightedge lines draw the letters a·u·k with Teal.
+   Lines overflow the viewport; once drawn they stay (no fade out). */
+.construction {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-blueprint);
+  width: 100vw;
+  height: 100vh;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.blueprint {
   fill: none;
-  stroke: rgba(237, 237, 237, 0.35);
+}
+
+.bp-arc,
+.bp-rule,
+.bp-mark {
+  fill: none;
+  stroke: rgba(20, 184, 166, 0.5);
   stroke-width: 1.5;
+  stroke-linecap: round;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-}
-
-.construction .puffin-mark__body {
   opacity: 0;
-  transition: opacity 800ms ease;
 }
 
-.construction.is-constructed .construct > * {
-  animation: construct-draw 900ms var(--ease-lock) forwards;
-  animation-delay: calc(var(--i) * 160ms);
+.bp-mark {
+  fill: rgba(20, 184, 166, 0.7);
+  stroke: none;
 }
 
-.construction.is-constructed .puffin-mark__body {
-  opacity: 1;
-  transition-delay: 1500ms;
+.construction.is-constructed .bp-arc,
+.construction.is-constructed .bp-rule,
+.construction.is-constructed .bp-mark {
+  animation:
+    construct-draw 900ms var(--ease-lock) forwards,
+    construct-fade-in 600ms ease forwards;
+  animation-delay: calc(var(--i) * 140ms);
 }
 
 @keyframes construct-draw {
@@ -354,18 +374,24 @@ html.js [data-reveal]:nth-child(n + 5) {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .construct > * {
-    stroke-dashoffset: 0;
-  }
-
-  .construction.is-constructed .construct > * {
-    animation: none;
-  }
-
-  .construction .puffin-mark__body {
+@keyframes construct-fade-in {
+  to {
     opacity: 1;
-    transition: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bp-arc,
+  .bp-rule,
+  .bp-mark {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+
+  .construction.is-constructed .bp-arc,
+  .construction.is-constructed .bp-rule,
+  .construction.is-constructed .bp-mark {
+    animation: none;
   }
 }
 

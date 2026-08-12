@@ -1,34 +1,58 @@
 ---
 /**
- * Construction — 尺规作图背景层（无文案，纯背景变化）。
- * 作为 Contribute 板块的绝对定位背景：圆规圆与直尺线依次描画
- * （Flight Line 同款 stroke-dashoffset，零库），随后海鹦淡入落稿。
- * 滚动进入视野触发一次；reduced-motion 直接呈现最终状态。
- * 透过毛玻璃卡片可见，不遮挡正文。
+ * Construction — 尺规作图背景：用圆规与直尺"画出 auk"。
+ * 固定铺满整个视口（overflow visible，水平/垂直直线溢出贯穿屏幕），
+ * 滚动进入任意"参与贡献"区域时触发一次；圆规画弧、直尺画线，画完不消失。
+ * 颜色用 Auk Teal（半透明），reduced-motion 直接呈现最终状态。
+ * 叠在内容之下、DotField 之上；透过毛玻璃卡片可见，不遮挡正文。
  */
-import PuffinMark from './PuffinMark.astro';
 ---
 
-<div class="construction pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-  <PuffinMark class="absolute -right-[8%] top-1/2 h-[125%] w-auto -translate-y-1/2 opacity-[0.16]">
-    <g class="construct">
-      <!-- 圆规：腹部外弧（A 315,315 的圆心） -->
-      <circle cx="433.5" cy="490" r="315" pathLength="1" style="--i:0"></circle>
-      <!-- 圆规：眼睛 + 放大参考圆 -->
-      <circle cx="673" cy="290" r="54" pathLength="1" style="--i:1"></circle>
-      <circle cx="673" cy="290" r="13.5" pathLength="1" style="--i:2"></circle>
-      <!-- 直尺：腹部顶边 / 分割线 / 底边 -->
-      <line x1="300" y1="462" x2="780" y2="462" pathLength="1" style="--i:3"></line>
-      <line x1="300" y1="579" x2="780" y2="579" pathLength="1" style="--i:4"></line>
-      <line x1="330" y1="793" x2="540" y2="793" pathLength="1" style="--i:5"></line>
-      <!-- 直尺：主翼前缘对角线 -->
-      <line x1="594" y1="466" x2="245" y2="772" pathLength="1" style="--i:6"></line>
-      <!-- 直尺：喙尖垂线 / 站立基线 -->
-      <line x1="836" y1="262" x2="836" y2="368" pathLength="1" style="--i:7"></line>
-      <line x1="490" y1="866" x2="660" y2="866" pathLength="1" style="--i:8"></line>
-    </g>
-  </PuffinMark>
-</div>
+<svg
+  class="construction"
+  viewBox="0 0 1600 900"
+  preserveAspectRatio="xMidYMid slice"
+  aria-hidden="true"
+>
+  <g class="blueprint">
+    <!-- ============ A ============ -->
+    <!-- 圆规弧：a 碗（左竖底→右竖底） -->
+    <path class="bp-arc" d="M 380 760 A 140 140 0 0 0 620 760" style="--i:0"></path>
+    <!-- 圆规弧：u 底 -->
+    <path class="bp-arc" d="M 820 760 A 110 110 0 0 0 980 760" style="--i:1"></path>
+    <!-- 圆规弧：k 下三角的膝部内角（可选装饰弧） -->
+    <path class="bp-arc" d="M 1240 700 A 90 90 0 0 0 1240 760" style="--i:2"></path>
+
+    <!-- ============ 直尺：贯穿屏幕的长线 ============ -->
+    <!-- 水平基线（贯穿全宽） -->
+    <line class="bp-rule" x1="-200" y1="760" x2="1800" y2="760" style="--i:3"></line>
+    <!-- 水平贯穿线 2（顶端） -->
+    <line class="bp-rule" x1="-200" y1="440" x2="1800" y2="440" style="--i:4"></line>
+    <!-- 垂直贯穿线 1 -->
+    <line class="bp-rule" x1="380" y1="-200" x2="380" y2="1100" style="--i:5"></line>
+    <!-- 垂直贯穿线 2 -->
+    <line class="bp-rule" x1="620" y1="-200" x2="620" y2="1100" style="--i:6"></line>
+    <!-- 垂直贯穿线 3 -->
+    <line class="bp-rule" x1="820" y1="-200" x2="820" y2="1100" style="--i:7"></line>
+    <!-- 垂直贯穿线 4 -->
+    <line class="bp-rule" x1="980" y1="-200" x2="980" y2="1100" style="--i:8"></line>
+    <!-- 垂直贯穿线 5 -->
+    <line class="bp-rule" x1="1240" y1="-200" x2="1240" y2="1100" style="--i:9"></line>
+    <!-- 斜向贯穿：A 的左腿（从屏幕外延伸进来） -->
+    <line class="bp-rule" x1="100" y1="1100" x2="700" y2="-200" style="--i:10"></line>
+    <!-- 斜向贯穿：A 的右腿 -->
+    <line class="bp-rule" x1="900" y1="-200" x2="500" y2="1100" style="--i:11"></line>
+    <!-- 斜向贯穿：k 的上对角线 -->
+    <line class="bp-rule" x1="1000" y1="-200" x2="1500" y2="1100" style="--i:12"></line>
+    <!-- 斜向贯穿：k 的下对角线 -->
+    <line class="bp-rule" x1="1500" y1="-200" x2="1000" y2="1100" style="--i:13"></line>
+
+    <!-- 端点标记：圆规扎针点 -->
+    <circle class="bp-mark" cx="500" cy="760" r="4" style="--i:14"></circle>
+    <circle class="bp-mark" cx="900" cy="760" r="4" style="--i:15"></circle>
+    <circle class="bp-mark" cx="1240" cy="730" r="4" style="--i:16"></circle>
+  </g>
+</svg>
 
 <script>
   const construction = document.querySelector('.construction');
@@ -42,7 +66,7 @@ import PuffinMark from './PuffinMark.astro';
           }
         }
       },
-      { threshold: 0.25 }
+      { threshold: 0.05 }
     );
     io.observe(construction);
   }
