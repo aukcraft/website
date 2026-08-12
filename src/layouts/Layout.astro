@@ -10,9 +10,10 @@ interface Props {
   title?: string;
   description?: string;
   lang?: 'en' | 'zh';
+  noindex?: boolean;
 }
 
-const { lang = 'en' } = Astro.props;
+const { lang = 'en', noindex = false } = Astro.props;
 const zh = lang === 'zh';
 
 const {
@@ -33,6 +34,7 @@ const canonical = zh ? 'https://aukcraft.org/zh/' : 'https://aukcraft.org/';
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="color-scheme" content="dark" />
+    {noindex && <meta name="robots" content="noindex" />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang="en" href="https://aukcraft.org/" />
@@ -43,7 +45,11 @@ const canonical = zh ? 'https://aukcraft.org/zh/' : 'https://aukcraft.org/';
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content={zh ? 'zh_CN' : 'en_US'} />
+    <meta property="og:image" content="https://aukcraft.org/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary" />
+    <meta name="twitter:image" content="https://aukcraft.org/og-image.png" />
     <script is:inline>
       document.documentElement.classList.add('js');
     </script>

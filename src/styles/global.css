@@ -16,6 +16,11 @@
   --motion-line-card: 1100ms;
   --motion-line-input: 500ms;
   --motion-line-link: 300ms;
+
+  /* z-index scale */
+  --z-field: -1; /* DotField canvas, behind content */
+  --z-noise: 60; /* film grain overlay */
+  --z-skip: 70; /* skip-to-content link */
 }
 
 body {
@@ -36,9 +41,13 @@ html {
     scroll-snap-type: y proximity;
   }
 
-  main > *,
-  body > footer {
+  main > * {
     scroll-snap-align: start;
+  }
+
+  /* Short footer lands naturally at the viewport bottom. */
+  body > footer {
+    scroll-snap-align: end;
   }
 }
 
@@ -58,7 +67,7 @@ html {
   position: fixed;
   top: 0.75rem;
   left: 0.75rem;
-  z-index: 70;
+  z-index: var(--z-skip);
   transform: translateY(-300%);
   background: var(--color-raised);
   color: var(--color-ink);
@@ -82,7 +91,7 @@ html {
 .noise {
   position: fixed;
   inset: 0;
-  z-index: 60;
+  z-index: var(--z-noise);
   pointer-events: none;
   opacity: 0.025;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>");
@@ -191,6 +200,23 @@ html.js [data-reveal] {
 html.js [data-reveal].is-visible {
   opacity: 1;
   transform: none;
+}
+
+/* ── Staggered entry: siblings cascade in, never mount all at once ── */
+html.js [data-reveal]:nth-child(2) {
+  transition-delay: 70ms;
+}
+
+html.js [data-reveal]:nth-child(3) {
+  transition-delay: 140ms;
+}
+
+html.js [data-reveal]:nth-child(4) {
+  transition-delay: 210ms;
+}
+
+html.js [data-reveal]:nth-child(n + 5) {
+  transition-delay: 280ms;
 }
 
 /* ── Reduced motion: direct color change, no flow ───────────────── */
