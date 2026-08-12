@@ -1,28 +1,17 @@
 ---
 /**
- * Construction — 尺规作图 (straightedge & compass) interlude.
- * Placed between Open Source and Contribute: construction guides draw
- * themselves (staggered stroke-dashoffset, same technique as Flight Line —
- * no animation library needed), then the puffin mark fades in.
- * Fires once on scroll-into-view; final state shown under reduced motion.
+ * Construction — 尺规作图背景层（无文案，纯背景变化）。
+ * 作为 Contribute 板块的绝对定位背景：圆规圆与直尺线依次描画
+ * （Flight Line 同款 stroke-dashoffset，零库），随后海鹦淡入落稿。
+ * 滚动进入视野触发一次；reduced-motion 直接呈现最终状态。
+ * 透过毛玻璃卡片可见，不遮挡正文。
  */
 import PuffinMark from './PuffinMark.astro';
-
-interface Props {
-  lang?: 'en' | 'zh';
-}
-
-const { lang = 'en' } = Astro.props;
-const zh = lang === 'zh';
 ---
 
-<section class="construction mx-auto flex max-w-5xl flex-col items-center px-6 py-40 md:py-56">
-  <p class="micro text-xs text-muted" data-reveal>
-    {zh ? '尺规作图' : 'STRAIGHTEDGE & COMPASS'}
-  </p>
-
-  <PuffinMark class="mt-12 h-auto w-[min(72vw,400px)]">
-    <g class="construct" aria-hidden="true">
+<div class="construction pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+  <PuffinMark class="absolute -right-[8%] top-1/2 h-[125%] w-auto -translate-y-1/2 opacity-[0.16]">
+    <g class="construct">
       <!-- 圆规：腹部外弧（A 315,315 的圆心） -->
       <circle cx="433.5" cy="490" r="315" pathLength="1" style="--i:0"></circle>
       <!-- 圆规：眼睛 + 放大参考圆 -->
@@ -39,30 +28,22 @@ const zh = lang === 'zh';
       <line x1="490" y1="866" x2="660" y2="866" pathLength="1" style="--i:8"></line>
     </g>
   </PuffinMark>
-
-  <p class="mt-12 max-w-prose text-center text-sm leading-relaxed text-muted" data-reveal>
-    {
-      zh
-        ? '吉祥物海鹦：每一条边都由直尺与圆规生成——如同我们的代码。'
-        : 'Our puffin: every edge born of straightedge and compass — like our code.'
-    }
-  </p>
-</section>
+</div>
 
 <script>
-  const section = document.querySelector('.construction');
-  if (section) {
+  const construction = document.querySelector('.construction');
+  if (construction) {
     const io = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
-            section.classList.add('is-constructed');
+            construction.classList.add('is-constructed');
             io.disconnect();
           }
         }
       },
-      { threshold: 0.35 }
+      { threshold: 0.25 }
     );
-    io.observe(section);
+    io.observe(construction);
   }
 </script>

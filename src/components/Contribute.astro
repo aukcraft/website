@@ -1,6 +1,7 @@
 ---
 import SectionHeading from './SectionHeading.astro';
 import FlightLine from './FlightLine.astro';
+import Construction from './Construction.astro';
 
 interface Props {
   lang?: 'en' | 'zh';
@@ -50,7 +51,8 @@ const t = {
 };
 ---
 
-<section id="contribute" class="mx-auto max-w-5xl px-6 py-40 md:py-56">
+<section id="contribute" class="relative mx-auto max-w-5xl px-6 py-40 md:py-56">
+  <Construction />
   <SectionHeading index="05" label={zh ? '参与贡献' : 'CONTRIBUTE'} />
 
   <p class="mt-16 max-w-prose text-lg leading-relaxed md:text-xl" data-reveal>
