@@ -23,6 +23,43 @@ body {
   color: var(--color-ink);
 }
 
+/* ── Smooth anchor scrolling ────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ── Consistent keyboard focus indicator ──────────────────────────
+   .flight elements show the Flight Line on focus instead. */
+:focus-visible {
+  outline: 1px solid var(--color-teal);
+  outline-offset: 3px;
+}
+
+.flight:focus-visible {
+  outline: none;
+}
+
+/* ── Skip to content (keyboard users) ───────────────────────────── */
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 70;
+  transform: translateY(-300%);
+  background: var(--color-raised);
+  color: var(--color-ink);
+  border: 1px solid var(--color-hairline);
+  padding: 0.5rem 1rem;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.75rem;
+  text-decoration: none;
+  transition: transform 200ms var(--ease-lock);
+}
+
+.skip-link:focus-visible {
+  transform: none;
+}
+
 ::selection {
   background: rgba(20, 184, 166, 0.22);
 }
@@ -43,6 +80,11 @@ body {
    until hover/focus ends, fading back to the 8% hairline. */
 .flight {
   position: relative;
+  transition: transform 200ms var(--ease-lock);
+}
+
+.flight:active {
+  transform: scale(0.98);
 }
 
 .flight-line {
@@ -118,22 +160,39 @@ body {
   transform: scaleX(1);
 }
 
-/* ── Scroll reveal: fade in + 16px rise, ≤600ms ─────────────────── */
+/* ── Scroll reveal: fade in + 16px rise, ≤600ms ───────────────────
+   Hidden initial state only applies when JS is available (html.js),
+   so the page stays fully readable with scripts disabled. */
 [data-reveal] {
-  opacity: 0;
-  transform: translateY(16px);
   transition:
     opacity 600ms var(--ease-lock),
     transform 600ms var(--ease-lock);
 }
 
-[data-reveal].is-visible {
+html.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+html.js [data-reveal].is-visible {
   opacity: 1;
   transform: none;
 }
 
 /* ── Reduced motion: direct color change, no flow ───────────────── */
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .flight {
+    transition: none;
+  }
+
+  .flight:active {
+    transform: none;
+  }
+
   .flight-line__trace {
     display: none;
   }
@@ -162,6 +221,11 @@ body {
 /* ── Serif accents (keywords only) ──────────────────────────────── */
 .serif-zh {
   font-family: "Noto Serif SC", serif;
+}
+
+/* ── Balanced display lines (no orphaned words) ─────────────────── */
+.balance {
+  text-wrap: balance;
 }
 
 /* ── Micro labels ───────────────────────────────────────────────── */
