@@ -1,0 +1,73 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import FlightLine from './FlightLine.astro';
+
+const roles = [
+  {
+    n: '01',
+    en: 'Rust developers',
+    zh: 'Rust 开发者',
+    body: 'Systems programming, performance optimization, cross-platform abstraction.',
+    bodyZh: '系统编程、性能优化、跨平台抽象。',
+  },
+  {
+    n: '02',
+    en: 'Frontend engineers',
+    zh: '前端工程师',
+    body: 'React / TypeScript, developer experience, UI precision.',
+    bodyZh: 'React / TypeScript，关注开发者体验与 UI 精度。',
+  },
+  {
+    n: '03',
+    en: 'Designers',
+    zh: '设计师',
+    body: 'Tool-product design, interaction detail, visual restraint.',
+    bodyZh: '工具类产品设计，关注交互细节与视觉克制。',
+  },
+  {
+    n: '04',
+    en: 'Testing / QA',
+    zh: '测试 / QA',
+    body: 'Automation, CI, release pipelines.',
+    bodyZh: '自动化测试、持续集成、发布流程。',
+  },
+];
+---
+
+<section id="contribute" class="mx-auto max-w-5xl px-6 py-40 md:py-56">
+  <SectionHeading index="05" label="CONTRIBUTE" />
+
+  <p class="mt-16 max-w-prose text-lg leading-relaxed md:text-xl" data-reveal>
+    We're looking for contributors who care about the craft.
+  </p>
+  <p class="mt-3 max-w-prose text-sm leading-relaxed text-muted" data-reveal>
+    我们在寻找同样敬畏手艺的你。
+  </p>
+
+  <div class="mt-12 grid gap-px bg-hairline sm:grid-cols-2">
+    {
+      roles.map((role) => (
+        <article class="bg-base p-8" data-reveal>
+          <p class="micro text-xs text-muted">{role.n}</p>
+          <h3 class="mt-3 text-lg font-medium">{role.en}</h3>
+          <p class="mt-1 text-xs text-muted">{role.zh}</p>
+          <p class="mt-4 text-sm leading-relaxed">{role.body}</p>
+          <p class="mt-1 text-xs leading-relaxed text-muted">{role.bodyZh}</p>
+        </article>
+      ))
+    }
+  </div>
+
+  <div class="mt-12 flex flex-wrap items-center gap-8" data-reveal>
+    <a
+      href="mailto:dev@aukcraft.org"
+      class="flight inline-flex items-center border border-hairline px-6 py-3 font-mono text-xs uppercase tracking-[0.15em] text-teal"
+    >
+      dev@aukcraft.org
+      <FlightLine />
+    </a>
+    <p class="max-w-prose text-sm leading-relaxed text-muted">
+      Open an Issue, send a PR, or write to us directly. / 提交 Issue、发起 PR，或直接邮件联系。
+    </p>
+  </div>
+</section>

@@ -1,0 +1,64 @@
+---
+const nav = [
+  { label: 'Philosophy', href: '#philosophy' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Technology', href: '#technology' },
+  { label: 'Open Source', href: '#open-source' },
+  { label: 'Contribute', href: '#contribute' },
+];
+
+const emails = [
+  { addr: 'hello@aukcraft.org', note: 'general & community' },
+  { addr: 'dev@aukcraft.org', note: 'technical' },
+  { addr: 'security@aukcraft.org', note: 'vulnerability reports' },
+];
+---
+
+<footer class="border-t border-hairline">
+  <div class="mx-auto grid max-w-5xl gap-12 px-6 py-20 md:grid-cols-3">
+    <div>
+      <p class="font-mono text-sm tracking-tight">aukcraft</p>
+      <nav class="mt-6" aria-label="Site">
+        <ul class="space-y-2">
+          {
+            nav.map((item) => (
+              <li>
+                <a class="link-line font-mono text-xs uppercase tracking-[0.15em]" href={item.href}>
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+          <li>
+            <a
+              class="link-line font-mono text-xs uppercase tracking-[0.15em]"
+              href="https://github.com/aukcraft"
+              target="_blank"
+              rel="noopener noreferrer">GitHub&thinsp;↗</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="md:col-span-2">
+      <p class="micro text-xs text-muted">CONTACT</p>
+      <ul class="mt-6 space-y-3">
+        {
+          emails.map((e) => (
+            <li class="font-mono text-sm">
+              <a class="link-line" href={`mailto:${e.addr}`}>{e.addr}</a>
+              <span class="ml-3 text-xs text-muted">{e.note}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-hairline">
+    <p class="mx-auto max-w-5xl px-6 py-6 font-mono text-xs text-muted">
+      © 2026 aukcraft. Crafted with precision.
+    </p>
+  </div>
+</footer>

@@ -1,0 +1,92 @@
+---
+import SectionHeading from './SectionHeading.astro';
+
+const tags = ['Rust', 'Tauri 2.x', 'React', 'TypeScript', 'Tailwind CSS', 'Rhai'];
+
+const highlights = [
+  {
+    en: 'Four-layer programmable architecture — Elements → Materials (Rhai scripts) → Layers → Profiles.',
+    zh: '四层可编程架构。',
+  },
+  {
+    en: 'Hot-reloadable configuration — external edits take effect instantly; atomic writes never corrupt.',
+    zh: '热重载配置，原子写入。',
+  },
+  {
+    en: 'User-programmable — drop-in .rhai material scripts with auto-generated interactive UI.',
+    zh: '用户可编程的 material 脚本。',
+  },
+  {
+    en: 'High-performance overlay — transparent, always-on-top, follows target windows.',
+    zh: '高性能覆盖层。',
+  },
+];
+---
+
+<section id="projects" class="mx-auto max-w-5xl px-6 py-40 md:py-56">
+  <SectionHeading index="02" label="PROJECTS" />
+
+  <div class="mt-16 grid gap-6 lg:grid-cols-3">
+    <article class="border border-hairline bg-raised p-8 md:p-10 lg:col-span-2" data-reveal>
+      <div class="flex flex-wrap items-baseline justify-between gap-4">
+        <h3 class="text-2xl font-medium tracking-tight">Peregrine</h3>
+        <p class="micro text-xs text-muted">MIT · Windows (x86 / x64 / ARM64) · macOS &amp; Linux planned</p>
+      </div>
+
+      <p class="mt-6 max-w-prose leading-relaxed">
+        A programmable desktop visual overlay system — originally built to solve 3D
+        motion sickness, at its core a general-purpose visual anchor engine.
+      </p>
+      <p class="mt-2 max-w-prose text-sm leading-relaxed text-muted">
+        可编程的桌面视觉覆盖层系统——最初为解决 3D 眩晕而生，核心是通用的视觉锚点引擎。
+      </p>
+
+      <ul class="mt-8 space-y-3">
+        {
+          highlights.map((h) => (
+            <li class="max-w-prose text-sm leading-relaxed">
+              <span class="text-muted">—&thinsp;</span>
+              {h.en}
+              <span class="ml-2 text-xs text-muted">{h.zh}</span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <ul class="mt-8 flex flex-wrap gap-2">
+        {
+          tags.map((tag) => (
+            <li class="border border-hairline px-2.5 py-1 font-mono text-xs text-muted">{tag}</li>
+          ))
+        }
+      </ul>
+
+      <div class="mt-10 flex flex-wrap gap-8">
+        <a
+          class="link-line font-mono text-xs uppercase tracking-[0.15em]"
+          href="https://peregrine.aukcraft.org/"
+          target="_blank"
+          rel="noopener noreferrer">Project Site&thinsp;↗</a
+        >
+        <a
+          class="link-line font-mono text-xs uppercase tracking-[0.15em]"
+          href="https://github.com/eeymoo/peregrine"
+          target="_blank"
+          rel="noopener noreferrer">Source&thinsp;↗</a
+        >
+      </div>
+    </article>
+
+    <article
+      class="flex flex-col justify-center border border-hairline border-dashed p-8 md:p-10"
+      data-reveal
+    >
+      <p class="micro text-xs text-muted">NEXT</p>
+      <h3 class="mt-4 text-lg font-medium">More crates on the way</h3>
+      <p class="mt-3 text-sm leading-relaxed text-muted">
+        Battle-tested internal modules, extracted and open-sourced one by one.
+      </p>
+      <p class="mt-2 text-xs leading-relaxed text-muted">更多 crate 即将开源。</p>
+    </article>
+  </div>
+</section>

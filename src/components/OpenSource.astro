@@ -1,0 +1,40 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import FlightLine from './FlightLine.astro';
+---
+
+<section id="open-source" class="mx-auto max-w-5xl px-6 py-40 md:py-56">
+  <SectionHeading index="04" label="OPEN SOURCE" />
+
+  <p class="mt-16 max-w-prose text-lg leading-relaxed md:text-xl" data-reveal>
+    Everything we build is open by default. Modules are designed in the open,
+    reviewed in the open, and released under the MIT license.
+  </p>
+  <p class="mt-3 max-w-prose text-sm leading-relaxed text-muted" data-reveal>
+    我们构建的一切都默认开源：模块在公开中设计、审查，并以 MIT 协议发布。
+  </p>
+
+  <div class="mt-12 flex flex-wrap items-center gap-8" data-reveal>
+    <a
+      href="https://github.com/aukcraft"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="flight inline-flex items-center border border-hairline px-6 py-3 font-mono text-xs uppercase tracking-[0.15em] text-teal"
+    >
+      github.com/aukcraft
+      <FlightLine />
+    </a>
+    <a
+      class="link-line font-mono text-xs uppercase tracking-[0.15em]"
+      href="https://github.com/eeymoo/peregrine/blob/main/CONTRIBUTING.md"
+      target="_blank"
+      rel="noopener noreferrer">Contributing guide&thinsp;↗</a
+    >
+  </div>
+
+  <!--
+    Community stats (stars / contributors) intentionally omitted at launch:
+    per design.md risk note, this block stays hidden until a live GitHub API
+    integration ships in a follow-up change — no static placeholder numbers.
+  -->
+</section>
