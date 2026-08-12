@@ -87,6 +87,28 @@ html {
   background: rgba(20, 184, 166, 0.22);
 }
 
+/* ── Backdrop canvas (behind everything) ────────────────────────── */
+#backdrop-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Frosted glass surfaces — canvas shows through ──────────────── */
+.glass {
+  background: color-mix(in srgb, var(--color-raised) 55%, transparent);
+  backdrop-filter: blur(16px) saturate(1.3);
+  -webkit-backdrop-filter: blur(16px) saturate(1.3);
+}
+
+.glass-deep {
+  background: color-mix(in srgb, var(--color-base) 55%, transparent);
+  backdrop-filter: blur(16px) saturate(1.3);
+  -webkit-backdrop-filter: blur(16px) saturate(1.3);
+}
+
 /* ── Film grain overlay (2–3%) ──────────────────────────────────── */
 .noise {
   position: fixed;

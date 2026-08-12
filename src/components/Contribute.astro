@@ -12,31 +12,31 @@ const zh = lang === 'zh';
 const roles = [
   {
     n: '01',
-    title: zh ? 'Rust 开发者' : 'Rust developers',
+    title: zh ? 'SDD 开发者' : 'SDD developers',
     body: zh
-      ? '系统编程、性能优化、跨平台抽象。'
-      : 'Systems programming, performance optimization, cross-platform abstraction.',
+      ? '规格驱动开发：把规格与意图变成可运行的系统。'
+      : 'Spec-driven development: turning specs and intent into working systems.',
   },
   {
     n: '02',
-    title: zh ? '前端工程师' : 'Frontend engineers',
+    title: zh ? '全栈工程师' : 'Full-stack engineers',
     body: zh
-      ? 'React / TypeScript，关注开发者体验与 UI 精度。'
-      : 'React / TypeScript, developer experience, UI precision.',
+      ? 'AI 时代的全栈：从 prompt 到产品，从前端到后端。'
+      : 'Full-stack in the AI era: from prompt to product, frontend to backend.',
   },
   {
     n: '03',
+    title: zh ? 'AI 工程师' : 'AI engineers',
+    body: zh
+      ? '智能体、工具链、评估与工作流集成。'
+      : 'Agents, tooling, evaluation, and workflow integration.',
+  },
+  {
+    n: '04',
     title: zh ? '设计师' : 'Designers',
     body: zh
       ? '工具类产品设计，关注交互细节与视觉克制。'
       : 'Tool-product design, interaction detail, visual restraint.',
-  },
-  {
-    n: '04',
-    title: zh ? '测试 / QA' : 'Testing / QA',
-    body: zh
-      ? '自动化测试、持续集成、发布流程。'
-      : 'Automation, CI, release pipelines.',
   },
 ];
 
@@ -60,7 +60,7 @@ const t = {
   <div class="mt-12 grid gap-px bg-hairline sm:grid-cols-2">
     {
       roles.map((role) => (
-        <article class="bg-base p-8" data-reveal>
+        <article class="glass-deep p-8" data-reveal>
           <p class="micro text-xs text-muted">{role.n}</p>
           <h3 class="mt-3 text-lg font-medium">{role.title}</h3>
           <p class="mt-4 text-sm leading-relaxed">{role.body}</p>
