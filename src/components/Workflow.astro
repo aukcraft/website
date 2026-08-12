@@ -1,0 +1,55 @@
+---
+import SectionHeading from './SectionHeading.astro';
+
+interface Props {
+  lang?: 'en' | 'zh';
+}
+
+const { lang = 'en' } = Astro.props;
+const zh = lang === 'zh';
+
+const workflow = zh
+  ? [
+      ['规格', 'SDD', 'Spec-Driven Development——先写规格，再写代码'],
+      ['测试', 'TDD', 'Test-Driven Development——红、绿、重构'],
+      ['审查', 'Review', '每一处变更都要过设计与代码评审'],
+      ['集成', 'CI/CD', '自动化构建、测试与发布，流程说了算'],
+      ['沉淀', 'Docs', '决策留痕，规格归档，知识不流失'],
+    ]
+  : [
+      ['Specify', 'SDD', 'spec-driven development — specs before code'],
+      ['Test', 'TDD', 'test-driven development — red, green, refactor'],
+      ['Review', 'Review', 'every change passes design and code review'],
+      ['Integrate', 'CI/CD', 'automated build, test and release pipelines'],
+      ['Record', 'Docs', 'decisions and specs archived, knowledge kept'],
+    ];
+
+const quote = zh
+  ? '流程不是束缚——流程是让速度可持续的东西。'
+  : "Process isn't overhead. Process is how speed stays sustainable.";
+---
+
+<section id="workflow" class="mx-auto max-w-5xl px-6 py-40 md:py-56">
+  <SectionHeading index="03" label={zh ? '工作流' : 'WORKFLOW'} />
+
+  <div class="glass mt-16 border border-hairline" data-reveal>
+    <p class="border-b border-hairline px-6 py-3 font-mono text-xs text-muted">
+      $ aukcraft --workflow
+    </p>
+    <dl class="px-6 py-6">
+      {
+        workflow.map(([stage, tool, note]) => (
+          <div class="grid grid-cols-1 gap-1 py-2 font-mono text-sm leading-relaxed sm:grid-cols-[8rem_20ch_1fr] sm:gap-4">
+            <dt class="text-muted">{stage}</dt>
+            <dd class="text-ink">{tool}</dd>
+            <dd class="text-muted">— {note}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+
+  <p class="mt-12 max-w-prose text-lg leading-relaxed md:text-xl" data-reveal>
+    {quote}
+  </p>
+</section>

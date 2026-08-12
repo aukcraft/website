@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 海鹦图标 · 尺规作图风格分层 SVG（轮廓由像素级提取后多边形拟合，与原图一致） -->
+<!-- 深色主题版本：底色与配色同站内 PuffinMark 的 .pm-* 映射（global.css），与站点底色 #0B0E11 配套 -->
 <!-- 分层（自底向上）：脚 → 腹部三层 → 翅(F2主翼+黑色尾/背纹) → 头(头/脸/眼/喙) -->
 <!-- 换色：只改 <style> 中对应 class 的 fill 与 stroke（两者保持同色即可） -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080">
   <style>
-    .bg        { fill: #F7F5EE; stroke: none; }
-    .feather   { fill: #14120E; stroke: #14120E; }
-    .feather-2 { fill: #1E1D19; stroke: #1E1D19; }
-    .belly-1   { fill: #FBF7EB; stroke: none; }
-    .belly-2   { fill: #F2EBDD; stroke: none; }
-    .belly-3   { fill: #E9E2D2; stroke: none; }
-    .face      { fill: #FBF7EB; stroke: #FBF7EB; }
-    .face-2    { fill: #EEE8DB; stroke: #EEE8DB; }
-    .face-3    { fill: #E2DCCF; stroke: #E2DCCF; }
-    .eye       { fill: #14120E; stroke: none; }
+    .bg        { fill: #0B0E11; stroke: none; }
+    .feather   { fill: #8A9199; stroke: #8A9199; }
+    .feather-2 { fill: #788089; stroke: #788089; }
+    .belly-1   { fill: #1B2027; stroke: none; }
+    .belly-2   { fill: #151A20; stroke: none; }
+    .belly-3   { fill: #0F1319; stroke: none; }
+    .face      { fill: #EDEDED; stroke: #EDEDED; }
+    .face-2    { fill: #D6D9DD; stroke: #D6D9DD; }
+    .face-3    { fill: #BDC2C8; stroke: #BDC2C8; }
+    .eye       { fill: #0B0E11; stroke: none; }
     path, polygon { stroke-width: 1.6; stroke-linejoin: round; }
     .belly-1, .belly-2, .belly-3 { stroke-width: 0; }
   </style>
