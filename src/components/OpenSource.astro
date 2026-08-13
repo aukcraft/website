@@ -1,6 +1,5 @@
 ---
 import SectionHeading from './SectionHeading.astro';
-import FlightLine from './FlightLine.astro';
 
 interface Props {
   lang?: 'en' | 'zh';
@@ -26,14 +25,11 @@ const t = {
 
   <div class="mt-12 flex flex-wrap items-center gap-8" data-reveal>
     <a
+      class="link-line font-mono text-xs uppercase tracking-[0.15em]"
       href="https://github.com/aukcraft"
       target="_blank"
-      rel="noopener noreferrer"
-      class="flight inline-flex items-center border border-hairline px-6 py-3 font-mono text-xs uppercase tracking-[0.15em] text-teal"
+      rel="noopener noreferrer">github.com/aukcraft&thinsp;↗</a
     >
-      github.com/aukcraft
-      <FlightLine />
-    </a>
     <a
       class="link-line font-mono text-xs uppercase tracking-[0.15em]"
       href="https://github.com/eeymoo/peregrine/blob/main/CONTRIBUTING.md"
