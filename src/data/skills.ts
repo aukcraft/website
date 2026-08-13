@@ -8,11 +8,11 @@ export interface Skill {
   description: { en: string; zh: string };
 }
 
-/** aukcraft's own skills (internal, from .agents/skills/ in aukcraft/aukcraft). */
+/** aukcraft's own skills, from the standalone aukcraft/skills repo. */
 export const skills: Skill[] = [
   {
     slug: 'aukcraft-site-design',
-    source: 'aukcraft/aukcraft',
+    source: 'aukcraft/skills',
     tagline: {
       en: 'The aukcraft.org page shell as a drop-in design system.',
       zh: '可直接套用的 aukcraft.org 页面外壳与设计系统。',

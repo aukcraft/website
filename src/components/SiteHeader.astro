@@ -24,12 +24,15 @@ const skillsHref = zh ? '/zh/skills/' : '/skills/';
   <nav class="flex items-baseline gap-6" aria-label="Site, language and links">
     {
       active === 'skills' ? (
-        <span class="font-mono text-xs text-muted" aria-current="page">
-          skills
+        <span
+          class="font-mono text-xs uppercase tracking-[0.15em] text-ink"
+          aria-current="page"
+        >
+          SKILLS
         </span>
       ) : (
-        <a class="link-line font-mono text-xs" href={skillsHref}>
-          skills
+        <a class="link-line font-mono text-xs uppercase tracking-[0.15em]" href={skillsHref}>
+          SKILLS
         </a>
       )
     }
