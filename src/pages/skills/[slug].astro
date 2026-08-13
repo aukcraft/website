@@ -1,0 +1,12 @@
+---
+import SkillsPage from '../../components/SkillsPage.astro';
+import { skills } from '../../data/skills';
+
+export function getStaticPaths() {
+  return skills.map((skill) => ({ params: { slug: skill.slug } }));
+}
+
+const { slug } = Astro.params;
+---
+
+<SkillsPage lang="en" activeSlug={slug} path={`/skills/${slug}/`} />

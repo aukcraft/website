@@ -1,0 +1,48 @@
+---
+import PuffinMark from './PuffinMark.astro';
+
+interface Props {
+  lang?: 'en' | 'zh';
+  /** Which top-level section this page belongs to. */
+  active?: 'home' | 'skills';
+  /** Href of the same page in the other language. */
+  switchHref: string;
+}
+
+const { lang = 'en', active = 'home', switchHref } = Astro.props;
+const zh = lang === 'zh';
+
+const homeHref = zh ? '/zh/' : '/';
+const skillsHref = zh ? '/zh/skills/' : '/skills/';
+---
+
+<header class="mx-auto flex max-w-5xl items-baseline justify-between px-6 pt-10">
+  <a href={homeHref} class="flex items-center gap-2 font-mono text-sm tracking-tight text-ink">
+    <PuffinMark class="h-6 w-6" />
+    aukcraft
+  </a>
+  <nav class="flex items-baseline gap-6" aria-label="Site, language and links">
+    {
+      active === 'skills' ? (
+        <span class="font-mono text-xs text-muted" aria-current="page">
+          skills
+        </span>
+      ) : (
+        <a class="link-line font-mono text-xs" href={skillsHref}>
+          skills
+        </a>
+      )
+    }
+    <span class="flex items-baseline gap-2 font-mono text-xs">
+      <span class="text-muted" aria-current="true">{zh ? '中文' : 'EN'}</span>
+      <span class="text-muted" aria-hidden="true">/</span>
+      <a class="link-line" href={switchHref}>{zh ? 'EN' : '中文'}</a>
+    </span>
+    <a
+      class="link-line font-mono text-xs"
+      href="https://github.com/aukcraft"
+      target="_blank"
+      rel="noopener noreferrer">github.com/aukcraft</a
+    >
+  </nav>
+</header>

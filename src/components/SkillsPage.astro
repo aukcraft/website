@@ -1,0 +1,212 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SiteHeader from './SiteHeader.astro';
+import SectionHeading from './SectionHeading.astro';
+import Footer from './Footer.astro';
+import { skills } from '../data/skills';
+
+interface Props {
+  lang?: 'en' | 'zh';
+  /** Slug of the skill shown in the detail panel. */
+  activeSlug: string;
+  /** Site-relative path of this page, e.g. '/skills/'. */
+  path: string;
+}
+
+const { lang = 'en', activeSlug, path } = Astro.props;
+const zh = lang === 'zh';
+
+const active = skills.find((s) => s.slug === activeSlug) ?? skills[0];
+
+const t = {
+  title: zh ? 'skills — aukcraft' : 'skills — aukcraft',
+  description: zh
+    ? 'aukcraft 维护的 agent skills——可复用的设计系统与工程经验，逐一提炼并开源。'
+    : 'Agent skills maintained by aukcraft — reusable design systems and engineering practice, distilled and open-sourced one by one.',
+  switchHref: zh ? path : `/zh${path}`,
+  heading: zh ? '技能' : 'SKILLS',
+  intro: zh
+    ? '一套可复用的 agent skills——从日常工作中提炼的设计系统与工程经验，随取随用。'
+    : 'A set of reusable agent skills — design systems and engineering practice distilled from daily work, ready to drop in.',
+  count: zh ? `${skills.length} 个` : `${skills.length} skills`,
+  sourceLabel: 'SKILL.md',
+  install: zh ? '安装' : 'INSTALL',
+  copy: zh ? '复制' : 'copy',
+  copied: zh ? '已复制' : 'copied',
+};
+
+const runners = ['npx', 'bunx', 'pnpm', 'yarn'] as const;
+const runnerCmd = (runner: (typeof runners)[number], source: string, slug: string) =>
+  `${runner === 'pnpm' || runner === 'yarn' ? `${runner} dlx` : runner} skills add ${source} -s ${slug}`;
+
+const skillHref = (slug: string) => (zh ? `/zh/skills/${slug}/` : `/skills/${slug}/`);
+---
+
+<Layout lang={lang} path={path} title={t.title} description={t.description}>
+  <SiteHeader lang={lang} active="skills" switchHref={t.switchHref} />
+  <main id="main">
+    <section class="mx-auto max-w-5xl px-6 pb-40 pt-32 md:pt-44">
+      {
+        zh ? (
+          <h1
+            class="balance text-5xl font-medium leading-tight tracking-tight md:text-7xl"
+            data-reveal
+          >
+            <span class="serif-zh">技能</span>库。
+          </h1>
+        ) : (
+          <h1
+            class="balance text-5xl font-medium leading-tight tracking-tight md:text-7xl"
+            data-reveal
+          >
+            Crafted <em class="font-serif italic">skills</em>.
+          </h1>
+        )
+      }
+
+      <p class="mt-12 max-w-prose text-lg leading-relaxed md:text-xl" data-reveal>
+        {t.intro}
+      </p>
+
+      <div class="mt-24 md:mt-32">
+        <SectionHeading index="01" label={t.heading} />
+
+        <div class="mt-16 grid gap-6 lg:grid-cols-5">
+          <nav aria-label="Skills" class="lg:col-span-2" data-reveal>
+            <p class="micro text-xs text-muted">{t.count}</p>
+            <ul class="mt-6 divide-y divide-hairline border-y border-hairline">
+              {
+                skills.map((skill, i) => {
+                  const isActive = skill.slug === active.slug;
+                  return (
+                    <li>
+                      <a
+                        href={skillHref(skill.slug)}
+                        aria-current={isActive ? 'page' : undefined}
+                        class:list={[
+                          'group flex items-baseline gap-4 py-3 font-mono text-sm',
+                          isActive ? 'text-ink' : 'text-muted transition-colors hover:text-ink',
+                        ]}
+                      >
+                        <span class="text-xs text-muted">
+                          {String(i + 1).padStart(2, '0')}
+                        </span>
+                        <span class="tracking-tight">{skill.slug}</span>
+                        {isActive && (
+                          <span class="ml-auto h-px w-6 self-center bg-teal" aria-hidden="true" />
+                        )}
+                      </a>
+                    </li>
+                  );
+                })
+              }
+            </ul>
+          </nav>
+
+          <article class="glass border border-hairline p-8 md:p-10 lg:col-span-3" data-reveal>
+            <p class="micro text-xs text-muted">
+              .agents/skills/{active.slug}/<span class="text-ink">{t.sourceLabel}</span>
+            </p>
+            <h2 class="mt-6 font-mono text-2xl font-medium tracking-tight">{active.slug}</h2>
+            <p class="mt-4 text-lg leading-relaxed">
+              {zh ? active.tagline.zh : active.tagline.en}
+            </p>
+            <p class="mt-6 max-w-prose text-sm leading-relaxed text-muted">
+              {zh ? active.description.zh : active.description.en}
+            </p>
+
+            <div class="mt-10">
+              <p class="micro text-xs text-muted">{t.install}</p>
+              <div
+                class="mt-4 border border-hairline"
+                data-install
+                data-source={active.source}
+                data-slug={active.slug}
+                data-label-copy={t.copy}
+                data-label-copied={t.copied}
+              >
+                <div class="flex items-center justify-between gap-4 border-b border-hairline">
+                  <div class="flex" role="group" aria-label="Package runner">
+                    {
+                      runners.map((runner, i) => (
+                        <button
+                          type="button"
+                          data-runner={runner}
+                          aria-pressed={i === 0 ? 'true' : 'false'}
+                          class:list={[
+                            'px-3 py-2 font-mono text-xs transition-colors',
+                            i === 0
+                              ? 'text-ink shadow-[inset_0_-1px_0_0_var(--color-teal)]'
+                              : 'text-muted hover:text-ink',
+                          ]}
+                        >
+                          {runner}
+                        </button>
+                      ))
+                    }
+                  </div>
+                  <button
+                    type="button"
+                    data-copy
+                    class="link-line mr-3 font-mono text-xs uppercase tracking-[0.15em]"
+                  >
+                    {t.copy}
+                  </button>
+                </div>
+                <code
+                  data-command
+                  class="block select-all overflow-x-auto whitespace-nowrap px-4 py-3 font-mono text-xs text-muted"
+                >
+                  {runnerCmd('npx', active.source, active.slug)}
+                </code>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer lang={lang} base={zh ? '/zh/' : '/'} />
+  <script>
+    document.querySelectorAll<HTMLElement>('[data-install]').forEach((root) => {
+      const { source, slug, labelCopy, labelCopied } = root.dataset;
+      const command = root.querySelector<HTMLElement>('[data-command]');
+      const copyBtn = root.querySelector<HTMLButtonElement>('[data-copy]');
+      const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-runner]'));
+      if (!command || !copyBtn || !source || !slug) return;
+
+      const build = (runner: string) =>
+        `${runner === 'pnpm' || runner === 'yarn' ? `${runner} dlx` : runner} skills add ${source} -s ${slug}`;
+
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          tabs.forEach((t) => {
+            const on = t === tab;
+            t.setAttribute('aria-pressed', String(on));
+            t.classList.toggle('text-ink', on);
+            t.classList.toggle('shadow-[inset_0_-1px_0_0_var(--color-teal)]', on);
+            t.classList.toggle('text-muted', !on);
+          });
+          command.textContent = build(tab.dataset.runner ?? 'npx');
+        });
+      });
+
+      copyBtn.addEventListener('click', async () => {
+        const text = command.textContent ?? '';
+        try {
+          await navigator.clipboard.writeText(text);
+        } catch {
+          const range = document.createRange();
+          range.selectNodeContents(command);
+          const sel = window.getSelection();
+          sel?.removeAllRanges();
+          sel?.addRange(range);
+        }
+        copyBtn.textContent = labelCopied ?? 'copied';
+        setTimeout(() => {
+          copyBtn.textContent = labelCopy ?? 'copy';
+        }, 1500);
+      });
+    });
+  </script>
+</Layout>

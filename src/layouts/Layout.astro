@@ -11,9 +11,11 @@ interface Props {
   description?: string;
   lang?: 'en' | 'zh';
   noindex?: boolean;
+  /** Site-relative path of this page, e.g. '/' or '/skills/'. */
+  path?: string;
 }
 
-const { lang = 'en', noindex = false } = Astro.props;
+const { lang = 'en', noindex = false, path = '/' } = Astro.props;
 const zh = lang === 'zh';
 
 const {
@@ -23,7 +25,9 @@ const {
     : 'A small open-source team building modular, reusable infrastructure — with a deliberately lightweight stack.',
 } = Astro.props;
 
-const canonical = zh ? 'https://aukcraft.org/zh/' : 'https://aukcraft.org/';
+const enUrl = `https://aukcraft.org${path}`;
+const zhUrl = `https://aukcraft.org/zh${path}`;
+const canonical = zh ? zhUrl : enUrl;
 ---
 
 <!doctype html>
@@ -37,8 +41,8 @@ const canonical = zh ? 'https://aukcraft.org/zh/' : 'https://aukcraft.org/';
     {noindex && <meta name="robots" content="noindex" />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonical} />
-    <link rel="alternate" hreflang="en" href="https://aukcraft.org/" />
-    <link rel="alternate" hreflang="zh-CN" href="https://aukcraft.org/zh/" />
+    <link rel="alternate" hreflang="en" href={enUrl} />
+    <link rel="alternate" hreflang="zh-CN" href={zhUrl} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="aukcraft" />
     <meta property="og:title" content={title} />

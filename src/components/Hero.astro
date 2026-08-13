@@ -1,7 +1,7 @@
 ---
 import FlightLine from './FlightLine.astro';
 import HeroCanvas from './HeroCanvas.astro';
-import PuffinMark from './PuffinMark.astro';
+import SiteHeader from './SiteHeader.astro';
 
 interface Props {
   lang?: 'en' | 'zh';
@@ -11,7 +11,6 @@ const { lang = 'en' } = Astro.props;
 const zh = lang === 'zh';
 
 const t = {
-  homeHref: zh ? '/zh/' : '/',
   switchHref: zh ? '/' : '/zh/',
   body: zh
     ? '一个小而精的开源团队，以模块化思维构建可复用的基础设施——配以刻意轻量的技术栈。'
@@ -22,25 +21,7 @@ const t = {
 ---
 
 <div>
-<header class="mx-auto flex max-w-5xl items-baseline justify-between px-6 pt-10">
-  <a href={t.homeHref} class="flex items-center gap-2 font-mono text-sm tracking-tight text-ink">
-    <PuffinMark class="h-6 w-6" />
-    aukcraft
-  </a>
-  <nav class="flex items-baseline gap-6" aria-label="Language and links">
-    <span class="flex items-baseline gap-2 font-mono text-xs">
-      <span class="text-muted" aria-current="true">{zh ? '中文' : 'EN'}</span>
-      <span class="text-muted" aria-hidden="true">/</span>
-      <a class="link-line" href={t.switchHref}>{zh ? 'EN' : '中文'}</a>
-    </span>
-    <a
-      class="link-line font-mono text-xs"
-      href="https://github.com/aukcraft"
-      target="_blank"
-      rel="noopener noreferrer">github.com/aukcraft</a
-    >
-  </nav>
-</header>
+<SiteHeader lang={lang} active="home" switchHref={t.switchHref} />
 
 <section class="relative mx-auto max-w-5xl px-6 pb-40 pt-32 md:pt-44">
   <HeroCanvas />
