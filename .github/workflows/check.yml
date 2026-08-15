@@ -1,0 +1,96 @@
+name: Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Every Monday 08:00 UTC — site health (DNS/canonical/link liveness)
+    - cron: '0 8 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Built pages present
+        run: |
+          test -f dist/index.html
+          test -f dist/zh/index.html
+          test -f dist/skills/index.html
+          test -f dist/zh/skills/index.html
+          test -f dist/404.html
+
+  lighthouse:
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci && npm run build
+      - name: Run Lighthouse budget assertion
+        run: |
+          npx --yes @lhci/cli@0.14.x autorun \
+            --collect.staticDistDir=dist \
+            --collect.url=/ \
+            --collect.url=/zh/ \
+            --numberOfRuns=1 \
+            --assert.assertions.categories:accessibility='["error",{"minScore":0.98}]' \
+            --assert.assertions.categories:performance='["error",{"minScore":0.85}]' \
+            --assert.assertions.categories:best-practices='["error",{"minScore":1}]' \
+            --assert.assertions.categories:seo='["error",{"minScore":1}]'
+
+  site-health:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Domains reachable
+        run: |
+          fail=0
+          for u in https://www.aukcraft.org/ https://www.aukcraft.org/zh/ \
+                   https://www.aukcraft.org/skills/ https://www.aukcraft.org/zh/skills/; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" -m 15 "$u")
+            echo "$code $u"
+            [ "$code" = "200" ] || fail=1
+          done
+          exit $fail
+      - name: Apex resolves (canonical target must not be dead)
+        run: |
+          # canonical/hreflang/og all point at https://aukcraft.org — if apex has
+          # no DNS record this fails until the record exists. Known open item.
+          code=$(curl -s -o /dev/null -w "%{http_code}" -m 15 https://aukcraft.org/) || true
+          echo "apex → ${code:-unreachable}"
+          [ "$code" = "200" ] || { echo "::warning::apex aukcraft.org not reachable (canonical points here)"; }
+      - name: Key external links alive
+        run: |
+          fail=0
+          for u in https://github.com/aukcraft \
+                   https://github.com/eeymoo/peregrine \
+                   https://github.com/eeymoo/peregrine/blob/main/CONTRIBUTING.md \
+                   https://peregrine.aukcraft.org/; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" -m 15 -L "$u")
+            echo "$code $u"
+            [ "$code" = "200" ] || fail=1
+          done
+          exit $fail
+      - name: Canonical tag consistency
+        run: |
+          canonical=$(curl -s -m 15 https://www.aukcraft.org/zh/ | grep -oE 'rel="canonical" href="[^"]*"' | head -1)
+          echo "$canonical"
+          echo "$canonical" | grep -q 'href="https://aukcraft.org/zh/"'
