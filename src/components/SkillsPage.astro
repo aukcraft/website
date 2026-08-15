@@ -134,10 +134,10 @@ const skillHref = (slug: string) => (zh ? `/zh/skills/${slug}/` : `/skills/${slu
                           data-runner={runner}
                           aria-pressed={i === 0 ? 'true' : 'false'}
                           class:list={[
-                            'px-3 py-2 font-mono text-xs transition-colors',
+                            '-mb-px border-b px-3 py-2 font-mono text-xs transition-colors',
                             i === 0
-                              ? 'text-ink shadow-[inset_0_-1px_0_0_var(--color-teal)]'
-                              : 'text-muted hover:text-ink',
+                              ? 'border-teal text-ink'
+                              : 'border-transparent text-muted hover:text-ink',
                           ]}
                         >
                           {runner}
@@ -184,8 +184,9 @@ const skillHref = (slug: string) => (zh ? `/zh/skills/${slug}/` : `/skills/${slu
             const on = t === tab;
             t.setAttribute('aria-pressed', String(on));
             t.classList.toggle('text-ink', on);
-            t.classList.toggle('shadow-[inset_0_-1px_0_0_var(--color-teal)]', on);
+            t.classList.toggle('border-teal', on);
             t.classList.toggle('text-muted', !on);
+            t.classList.toggle('border-transparent', !on);
           });
           command.textContent = build(tab.dataset.runner ?? 'npx');
         });

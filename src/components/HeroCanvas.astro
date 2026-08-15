@@ -55,7 +55,7 @@
         const fontSize = (100 * (w * 0.92)) / octx.measureText(text).width;
         octx.font = `900 ${fontSize}px ${family}`;
         octx.textBaseline = 'middle';
-        octx.fillStyle = '#fff';
+        octx.fillStyle = '#fff'; // brand-audit:ignore 离屏画布仅读 alpha 采样字形，填充色不上屏
         octx.fillText(text, (w - octx.measureText(text).width) / 2, h * 0.52);
 
         const img = octx.getImageData(0, 0, off.width, off.height).data;
